@@ -1,0 +1,27 @@
+def add_score(scores, ima, ochki):
+    scores[ima] = scores.get(ima, 0) + ochki
+scores = {}
+while True:
+    stroka = input('Введите имя и очки через пробел или конец: ').strip()
+    if stroka.lower() == "конец":
+        break
+
+    chasti = stroka.split()
+    if len(chasti) != 2:
+        continue
+
+    ima = chasti[0]
+    ochki = int(chasti[1])
+
+    add_score(scores, ima, ochki)
+    
+print("Результаты:")
+for ima in scores:
+    print(f"{ima}: {scores[ima]} очков")
+max_ochki = max(scores.values())
+pobediteli = []
+for ima in scores:
+    if scores[ima] == max_ochki:
+        pobediteli.append(ima)
+
+print("Победитель:", ", ".join(pobediteli))
