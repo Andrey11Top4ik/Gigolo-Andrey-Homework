@@ -1,1 +1,101 @@
+# 1)
+# Разработайте класс Rectangle.
+
+# При инициализации класс принимает два кортежа рациональных координат противоположных углов прямоугольника (со сторонами параллельными осям координат).
+
+# Класс должен реализовывать методы:
+
+# perimeter — возвращает периметр прямоугольника;
+# area — возвращает площадь прямоугольника.
+# Все результаты вычислений нужно округлить до сотых.
+
+# 2)
+# Расширим функционал класса написанного вами в предыдущей задаче.
+
+# Реализуйте методы:
+
+# get_pos() — возвращает координаты верхнего левого угла в виде кортежа;
+# get_size() — возвращает размеры в виде кортежа;
+# move(dx, dy) — изменяет положение на заданные значения;
+# resize(width, height) — изменяет размер (положение верхнего левого угла остаётся неизменным).
+
+# 3)
+# Необходимо ещё немного доработать предыдущую задачу.
+
+# Разработайте методы:
+
+# turn() — поворачивает прямоугольник на 90° по часовой стрелке вокруг его центра;
+# scale(factor) — изменяет размер в указанное количество раз, тоже относительно центра.
+# Все вычисления производить с округлением до сотых.
+
+
+
+class Rectangle:
+    def __init__(self, a, b):
+        x1, y1 = a
+        x2, y2 = b
+
+        # верхний левый угол 
+        self.x = round(min(x1, x2), 2)
+        self.y = round(max(y1, y2), 2)
+        # размеры
+        self.w = round(abs(x2 - x1), 2)
+        self.h = round(abs(y2 - y1), 2)
+    def perimeter(self):
+        return round(2 * (self.w + self.h), 2)
+    def area(self):
+        return round(self.w * self.h, 2)
+
+    def get_pos(self):
+        return (self.x, self.y)
+    def get_size(self):
+        return (self.w, self.h)
+    def move(self, dx, dy):
+        self.x = round(self.x + dx, 2)
+        self.y = round(self.y + dy, 2)
+
+    def resize(self, width, height):
+        self.w = round(width, 2)
+        self.h = round(height, 2)
+    def turn(self):
+        cx = self.x + self.w / 2
+        cy = self.y - self.h / 2
+        new_w = self.h
+        new_h = self.w
+        self.x = round(cx - new_w / 2, 2)
+        self.y = round(cy + new_h / 2, 2)
+        self.w = round(new_w, 2)
+        self.h = round(new_h, 2)
+
+    def scale(self, factor):
+        cx = self.x + self.w / 2
+        cy = self.y - self.h / 2
+        new_w = self.w * factor
+        new_h = self.h * factor
+        self.x = round(cx - new_w / 2, 2)
+        self.y = round(cy + new_h / 2, 2)
+        self.w = round(new_w, 2)
+        self.h = round(new_h, 2)
+        
+r = Rectangle((1, 5), (6, 2))
+
+
+
+print("Периметр:",r.perimeter())
+print("Площадь:", r.area())
+
+print("Позиция:", r.get_pos())
+print("Размер:",r.get_size())
+r.move(2, 1)
+print("После move:",r.get_pos())
+
+r.resize(10, 4)
+print("После resize:",r.get_size())
+r.turn()
+print("После turn позиция:",r.get_pos())
+print("После turn размер:",r.get_size())
+
+r.scale(2)
+print("После scale позиция:",r.get_pos())
+print("После scale размер:",r.get_size())
 
